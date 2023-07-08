@@ -25,13 +25,46 @@ const columns = 8;
 export function MinesWeeper() {
   const [flag, setFlag] = useState(false);
   const [rowsValue, setRowsValue] = useState([]);
-  const [gameState, setGameState] = useState({ lost: false, won: false }); //To prevent the player of clicking of any other Spots
+  const [gameState, setGameState] = useState({ lost: false, won: false }); //To prevent the
   const [minesCount, setMinesCount] = useState(5);
   const [minesApplied, setMinesApplied] = useState(5);
   const [resultMessage, setResultMessage] = useState("");
   const [smileState, setSmileState] = useState(images.smile);
 
   const isDirty = useRef(minesApplied);
+
+  function breadthFirst(graph, source) {
+    const queue = [source];
+
+    while (queue > 0) {
+      const current = queue.shift(); // remove from the front
+
+      const neighborsArray = graph[current];
+
+      for (let neighbor of neighborsArray) {
+        queue.push(neighbor); // added to the back
+      }
+    }
+  }
+
+  const graph = {
+    a: ["b", "c"],
+    b: ["d", "e"],
+    c: ["f"],
+    d: ["h"],
+    e: ["j", "k"],
+    f: [],
+    g: [],
+    h: [],
+    j: [],
+    k: [],
+  };
+  // breadthFirst(graph, "a");
+
+  useEffect(() => {
+    breadthFirst(graph, "a");
+    newGame();
+  }, []);
 
   function handleHasChanges() {
     if (isDirty.current !== minesApplied) {
@@ -107,10 +140,6 @@ export function MinesWeeper() {
 
     setRowsValue(row);
   }
-
-  useEffect(() => {
-    newGame();
-  }, []);
 
   function onClickSection(sectionData, index) {
     setSmileState(images.sad);
@@ -313,10 +342,7 @@ export function MinesWeeper() {
                 }
                 key={index}
               >
-                {data.flag && (
-                  //&& gameState.lost && !data.isExploded &&
-                  <IMG src={images.flag} />
-                )}
+                {data.flag && <IMG src={images.flag} />}
 
                 {gameState.lost && data.mine && <IMG src={images.mine} />}
 
