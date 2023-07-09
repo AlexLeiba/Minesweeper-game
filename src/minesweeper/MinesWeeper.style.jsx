@@ -2,15 +2,15 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 export const BoardWrapper = styled.div`
-  width: 506px;
-  height: 500px;
+  width: 450px;
+  height: 450px;
   background-color: azure;
   border: 4px solid gray;
 
@@ -43,8 +43,8 @@ export const FlexBetweenStart = styled.div`
 `;
 
 export const Section = styled.div`
-  width: 61px;
-  height: 60px;
+  width: 54px;
+  height: 54px;
 
   border: 1.5px solid white;
 
@@ -120,8 +120,9 @@ export const Button = styled.button`
 
 export const IMG = styled.img`
   height: ${({ iconH }) => (iconH ? `${iconH}px` : "")};
-  width: ${({ iconW }) => (iconW ? `${iconW}px` : "30px")};
+  width: ${({ iconW }) => (iconW ? `${iconW}px` : "25px")};
   z-index: 2;
+  margin: 0;
 `;
 
 export const Indicators = styled.span`
@@ -200,7 +201,7 @@ export const Text = styled.span`
 `;
 
 export const HeaderWrapper = styled.div`
-  width: 170px;
+  width: 100px;
   display: flex;
   justify-content: flex-end;
 

@@ -297,7 +297,7 @@ export function MinesWeeper() {
   return (
     <Container>
       <FlexColumn>
-        <IMG iconW={220} src={images.minesweeperTitleLogo} />
+        <IMG iconW={150} src={images.minesweeperTitleLogo} />
         <FlexBetweenStart>
           <HeaderWrapper type={"input"}>
             <FlexColumn>
