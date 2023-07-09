@@ -33,6 +33,19 @@ export function MinesWeeper() {
 
   const isDirty = useRef(minesApplied);
 
+  const graph = {
+    a: ["b", "c"],
+    b: ["d", "e"],
+    c: ["f"],
+    d: ["h"],
+    e: ["j", "k"],
+    f: [],
+    g: [],
+    h: [],
+    j: [],
+    k: [],
+  };
+
   function breadthFirst(graph, source) {
     const queue = [source];
 
@@ -47,23 +60,12 @@ export function MinesWeeper() {
     }
   }
 
-  const graph = {
-    a: ["b", "c"],
-    b: ["d", "e"],
-    c: ["f"],
-    d: ["h"],
-    e: ["j", "k"],
-    f: [],
-    g: [],
-    h: [],
-    j: [],
-    k: [],
-  };
   // breadthFirst(graph, "a");
 
   useEffect(() => {
     breadthFirst(graph, "a");
     newGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleHasChanges() {
