@@ -61,7 +61,7 @@ export const Section = styled.div`
       `;
     } else if (isEmpty) {
       return css`
-        background-color: #939090;
+        background-color: #9ea1a3;
       `;
     } else if (indicatorNumber) {
       return css`
@@ -119,7 +119,8 @@ export const Button = styled.button`
 `;
 
 export const IMG = styled.img`
-  width: 30px;
+  height: ${({ iconH }) => (iconH ? `${iconH}px` : "")};
+  width: ${({ iconW }) => (iconW ? `${iconW}px` : "30px")};
   z-index: 2;
 `;
 
@@ -151,7 +152,9 @@ export const Indicators = styled.span`
         `;
 
       default:
-        break;
+        return css`
+          color: #3d0439;
+        `;
     }
   }}
 `;

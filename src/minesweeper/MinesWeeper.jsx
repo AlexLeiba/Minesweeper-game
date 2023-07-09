@@ -80,7 +80,7 @@ export function MinesWeeper() {
     } else if (minesCount === 0) {
       alert("Please apply at least 1 mine!");
     } else if (minesCount > 20) {
-      alert("Sorry, You can't apply more than 20 mines!");
+      alert("Sorry, You can't apply more than 20 mines, try a smaller number!");
     }
   }
 
@@ -295,7 +295,7 @@ export function MinesWeeper() {
   return (
     <Container>
       <FlexColumn>
-        <h2>Minesweeper</h2>
+        <IMG iconW={220} src={images.minesweeperTitleLogo} />
         <FlexBetweenStart>
           <HeaderWrapper type={"input"}>
             <FlexColumn>
