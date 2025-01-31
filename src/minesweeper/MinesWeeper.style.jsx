@@ -39,8 +39,9 @@ export const HeadAbsolute = styled.div`
   display: flex;
 
   align-items: center;
+  justify-content: center;
   position: absolute;
-  gap: 10px;
+  column-gap: 10px;
   right: 50%;
   transform: translateX(50%);
   top: 0px;
@@ -202,7 +203,6 @@ export const MinesInput = styled.input`
 
 export const Text = styled.span`
   font-weight: 500;
-  margin-bottom: 10px;
 
   ${({ type }) => {
     switch (type) {
