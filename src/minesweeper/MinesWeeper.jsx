@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 import {
   BoardWrapper,
   Button,
@@ -6,14 +6,15 @@ import {
   FlexBetween,
   FlexBetweenStart,
   FlexColumn,
+  HeadAbsolute,
   HeaderWrapper,
   IMG,
   Indicators,
   MinesInput,
   Section,
   Text,
-} from "./MinesWeeper.style";
-import { images } from "./images";
+} from './MinesWeeper.style';
+import { images } from './images';
 
 let minesLocation = []; //the coordination of row and column
 
@@ -28,17 +29,17 @@ export function MinesWeeper() {
   const [gameState, setGameState] = useState({ lost: false, won: false }); //To prevent the
   const [minesCount, setMinesCount] = useState(5);
   const [minesApplied, setMinesApplied] = useState(5);
-  const [resultMessage, setResultMessage] = useState("");
+  const [resultMessage, setResultMessage] = useState('');
   const [smileState, setSmileState] = useState(images.smile);
 
   const isDirty = useRef(minesApplied);
 
   const graph = {
-    a: ["b", "c"],
-    b: ["d", "e"],
-    c: ["f"],
-    d: ["h"],
-    e: ["j", "k"],
+    a: ['b', 'c'],
+    b: ['d', 'e'],
+    c: ['f'],
+    d: ['h'],
+    e: ['j', 'k'],
     f: [],
     g: [],
     h: [],
@@ -60,10 +61,8 @@ export function MinesWeeper() {
     }
   }
 
-  // breadthFirst(graph, "a");
-
   useEffect(() => {
-    breadthFirst(graph, "a");
+    breadthFirst(graph, 'a');
     newGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -80,7 +79,7 @@ export function MinesWeeper() {
     if (minesCount > 0 && minesCount <= 20) {
       setMinesApplied(minesCount);
     } else if (minesCount === 0) {
-      alert("Please apply at least 1 mine!");
+      alert('Please apply at least 1 mine!');
     } else if (minesCount > 20) {
       alert("Sorry, You can't apply more than 20 mines, try a smaller number!");
     }
@@ -91,7 +90,7 @@ export function MinesWeeper() {
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < columns; c++) {
-        let location = r.toString() + "-" + c.toString();
+        let location = r.toString() + '-' + c.toString();
 
         coords.push(location);
       }
@@ -120,19 +119,19 @@ export function MinesWeeper() {
     setSmileState(images.smile);
     setFlag(false);
     minesLocation = [];
-    setResultMessage("");
+    setResultMessage('');
     setMines();
     containsDuplicates(minesLocation);
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < columns; c++) {
         let location = {
-          location: r.toString() + "-" + c.toString(),
+          location: r.toString() + '-' + c.toString(),
           flag: false,
           mine: false,
         };
 
-        if (minesLocation.includes(r.toString() + "-" + c.toString())) {
+        if (minesLocation.includes(r.toString() + '-' + c.toString())) {
           location.mine = true;
         }
 
@@ -170,7 +169,7 @@ export function MinesWeeper() {
         };
         setGameState({ lost: true, won: false });
         setSmileState(images.gameOver);
-        setResultMessage("GAME OVER");
+        setResultMessage('GAME OVER');
       } else {
         setTimeout(() => {
           if (!gameState.lost) {
@@ -180,7 +179,7 @@ export function MinesWeeper() {
       }
     }
 
-    const coords = sectionData.location.split("-");
+    const coords = sectionData.location.split('-');
     const rowCoords = parseInt(coords[0]);
     const columnCoords = parseInt(coords[1]);
 
@@ -201,7 +200,7 @@ export function MinesWeeper() {
         flagCoords.length === parseInt(minesApplied) &&
         flagsApplied.length === parseInt(minesApplied)
       ) {
-        setResultMessage("Congrats! you won!");
+        setResultMessage('You won!');
         setGameState({ lost: false, won: true });
         setSmileState(images.cool);
       }
@@ -276,7 +275,7 @@ export function MinesWeeper() {
 
     if (
       minesLocation.includes(
-        rowCoords.toString() + "-" + columnCoords.toString()
+        rowCoords.toString() + '-' + columnCoords.toString()
       )
     ) {
       return 1;
@@ -297,36 +296,39 @@ export function MinesWeeper() {
   return (
     <Container>
       <FlexColumn>
-        <IMG iconW={150} src={images.minesweeperTitleLogo} />
+        <IMG iconW={100} src={images.minesweeperTitleLogo} />
         <FlexBetweenStart>
-          <HeaderWrapper type={"input"}>
-            <FlexColumn>
-              <Text>Number of mines</Text>
+          <div>
+            <HeaderWrapper type={'mines-mobile'}>
+              <Text>Applied Mines: </Text>
+              <Text type={'mines'}>{minesApplied}</Text>
+            </HeaderWrapper>
+            <HeaderWrapper type={'input'}>
+              <FlexColumn>
+                <FlexBetween>
+                  <MinesInput
+                    value={minesCount}
+                    onChange={(e) => setMinesCount(e.target.value)}
+                    type='number'
+                  />
+                  <Button onClick={() => handleChangeMines()} type='input'>
+                    Apply
+                  </Button>
+                </FlexBetween>
+              </FlexColumn>
+            </HeaderWrapper>
+          </div>
 
-              <FlexBetween>
-                <MinesInput
-                  value={minesCount}
-                  onChange={(e) => setMinesCount(e.target.value)}
-                  type="number"
-                />
-                <Button onClick={() => handleChangeMines()} type="input">
-                  Apply
-                </Button>
-              </FlexBetween>
-            </FlexColumn>
-          </HeaderWrapper>
+          <HeadAbsolute>
+            <Text type={gameState.lost ? 'gameOver' : 'won'}>
+              {resultMessage}
+            </Text>
+            <IMG onClick={() => setFlag(!flag)} src={smileState} />
+          </HeadAbsolute>
 
-          <HeaderWrapper>
-            <FlexColumn>
-              <Text type={gameState.lost ? "gameOver" : "won"}>
-                {resultMessage}
-              </Text>
-              <IMG onClick={() => setFlag(!flag)} src={smileState} />
-            </FlexColumn>
-          </HeaderWrapper>
-
-          <HeaderWrapper type={"mines"}>
-            <Text>Mines: </Text> <Text type={"mines"}>{minesApplied}</Text>
+          <HeaderWrapper type={'mines-web'}>
+            <Text>Mines applied: </Text>
+            <Text type={'mines'}>{minesApplied}</Text>
           </HeaderWrapper>
         </FlexBetweenStart>
 

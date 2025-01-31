@@ -1,16 +1,22 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
 export const BoardWrapper = styled.div`
-  width: 450px;
-  height: 450px;
+  @media (max-width: 1000px) {
+    width: 258px;
+    height: 258px;
+  }
+  @media (min-width: 1000px) {
+    width: 450px;
+    height: 450px;
+  }
+
   background-color: azure;
   border: 4px solid gray;
 
@@ -29,6 +35,22 @@ export const FlexColumn = styled.div`
   align-items: center;
 `;
 
+export const HeadAbsolute = styled.div`
+  display: flex;
+
+  align-items: center;
+  position: absolute;
+  gap: 10px;
+  right: 50%;
+  transform: translateX(50%);
+  top: 0px;
+
+  @media (max-width: 1000px) {
+    right: 70px;
+    top: 30px;
+  }
+`;
+
 export const FlexBetween = styled.div`
   display: flex;
   justify-content: space-between;
@@ -38,11 +60,18 @@ export const FlexBetween = styled.div`
 export const FlexBetweenStart = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
+  position: relative;
 `;
 
 export const Section = styled.div`
+  cursor: pointer;
+  @media (max-width: 1000px) {
+    width: 30px;
+    height: 30px;
+  }
+
   width: 54px;
   height: 54px;
 
@@ -80,6 +109,7 @@ export const Section = styled.div`
 `;
 
 export const Button = styled.button`
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,7 +133,7 @@ export const Button = styled.button`
 
   ${({ type }) => {
     switch (type) {
-      case "input":
+      case 'input':
         return css`
           height: 34px;
         `;
@@ -119,10 +149,9 @@ export const Button = styled.button`
 `;
 
 export const IMG = styled.img`
-  height: ${({ iconH }) => (iconH ? `${iconH}px` : "")};
-  width: ${({ iconW }) => (iconW ? `${iconW}px` : "25px")};
+  height: ${({ iconH }) => (iconH ? `${iconH}px` : '')};
+  width: ${({ iconW }) => (iconW ? `${iconW}px` : '25px')};
   z-index: 2;
-  margin: 0;
 `;
 
 export const Indicators = styled.span`
@@ -173,19 +202,20 @@ export const MinesInput = styled.input`
 
 export const Text = styled.span`
   font-weight: 500;
+  margin-bottom: 10px;
 
   ${({ type }) => {
     switch (type) {
-      case "gameOver":
+      case 'gameOver':
         return css`
           color: red;
         `;
-      case "won":
+      case 'won':
         return css`
           color: green;
         `;
 
-      case "mines":
+      case 'mines':
         return css`
           color: red;
           font-size: 20px;
@@ -201,21 +231,36 @@ export const Text = styled.span`
 `;
 
 export const HeaderWrapper = styled.div`
-  width: 100px;
   display: flex;
   justify-content: flex-end;
 
   ${({ type }) => {
     switch (type) {
-      case "input":
+      case 'input':
         return css`
           justify-content: flex-start;
+          width: 100px;
+          @media (max-width: 1000px) {
+            width: 50px;
+          }
         `;
 
-      case "mines":
+      case 'mines-web':
         return css`
           justify-content: flex-end;
           align-items: center;
+          @media (max-width: 1000px) {
+            display: none;
+          }
+        `;
+      case 'mines-mobile':
+        return css`
+          justify-content: flex-end;
+          align-items: center;
+          display: none;
+          @media (max-width: 1000px) {
+            display: block;
+          }
         `;
 
       default:
