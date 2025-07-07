@@ -68,13 +68,9 @@ export const FlexBetweenStart = styled.div`
 
 export const Section = styled.div`
   cursor: pointer;
-  @media (max-width: 1000px) {
-    width: 30px;
-    height: 30px;
-  }
 
-  width: 54px;
-  height: 54px;
+  width: calc(100% / 9);
+  height: calc(100% / 9);
 
   border: 1.5px solid white;
 
